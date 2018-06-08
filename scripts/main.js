@@ -77,7 +77,7 @@ $(function () {
 function getUserInfo(url, callback) {
 
 
-    $.get("https://dangjain.ishoubei.com/jsapi-oauth?pwd=sddkhhyy&url=" + url, function (e) {
+    $.get("https://dangjain.ishoubei.com:8443/jsapi-oauth?pwd=sddkhhyy&url=" + url, function (e) {
         var _config = {};
         _config = e;
         //  alert(JSON.stringify(_config));
