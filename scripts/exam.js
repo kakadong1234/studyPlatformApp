@@ -247,7 +247,7 @@ function initListBody(exam) {
         '<div class="weui-cells weui-cells_radio">',
         '{{#items}}<label class="weui-cell weui-check__label" for="radio{{id}}{{key}}">',
         '<div class="weui-cell__bd">',
-        '<p class="weui-media-box__desc">{{key}}. {{value}} </p>',
+        '<p id="item_p">{{key}}. {{value}} </p>',
         '</div>',
         '<div class="weui-cell__ft">',
         '{{^selected}}<input type="radio" class="weui-check" name="radio{{id}}" id="radio{{id}}{{key}}" value="{{key}}" onclick="setUserAnswer({{id}}, this.value)">{{/selected}}',

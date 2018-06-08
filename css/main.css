@@ -816,3 +816,8 @@ video {
 .weui-label i,.weui-uploader__title i{
     color:red;
 }
+
+#item_p{
+    font-size: 15px;
+    line-height: 10px;
+}
