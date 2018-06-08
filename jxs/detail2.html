@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>网上讲习所</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!-- head 中 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.2/style/weui.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.0/css/jquery-weui.min.css">
+
+    <link href="../css/main.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="nav">
+        <span onclick="history.go(-1)">
+            <img src="../img/arrow-left.png" />
+        </span>
+        <span>网上讲习所</span>
+        <span id="btn-nav">导航</span>
+    </div>
+    <div class="weui-skin_android" id="androidActionsheet" style="display:none">
+        <div class="weui-mask" style="visibility:visible; opacity:0.5"></div>
+        <div class="weui-actionsheet">
+            <div class="weui-actionsheet__menu">
+                <div class="weui-actionsheet__cell" onclick="location.href='index.html'">网上讲习所</div>
+                <div class="weui-actionsheet__cell" onclick="location.href='map.html'">党建大数据</div>
+                <div class="weui-actionsheet__cell" onclick="location.href = 'http://39.104.67.0:8443/ehome/ehome.html'">党群E家</div>
+                <div class="weui-actionsheet__cell" onclick="location.href='center.html'">云学习中心</div>
+                <div class="weui-actionsheet__cell" onclick="location.href='jianguan.html'">驻村云监管</div>
+                <div class="weui-actionsheet__cell" onclick="location.href = 'http://39.104.67.0:8443/ehome/personnel.html'">人才直通车</div>
+                <div class="weui-actionsheet__cell" onclick="location.href='user.html'">个人信息</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel detail">
+
+        <div class="panel-body">
+            <div class="card-alert">
+                <div class="alert-title" id="title">强化思想入党，掌握党，基本知识</div>
+                <div class="alert-body">
+                    <div class="item">
+                        <img src="../img/kecheng3.png" />
+                        <span>课时数：<span id="period"></span></span>
+                    </div>
+                    <div class="item">
+                        <img src="../img/kecheng31.png" />
+                        <span>课程老师：<span id="teacher"></span></span>
+                    </div>
+
+                    <div class="item">
+                        <img src="../img/kecheng33.png" />
+                        <span>本期内容：<span id="memo"></span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div style="display:none" id="encode-content"></div>
+            <div class="content">
+                <!--<p>军警民联合编队航行途中。潘新新摄
+
+                初夏清晨，当第一缕阳光洒向海面，西沙某水警区军医钟俊利就起床了。
+
+                当天，钟俊利将跟随一支特殊巡逻编队，对西沙海域进行联合巡逻。一周前，得知自己即将参与任务，他兴奋不已：“能够参加军警民首次在西沙海域开展联合巡逻，是一生的荣耀！”</p>
+                                <img src="../img/item2.png" />
+                                <p>军警民联合编队航行途中。潘新新摄
+
+                初夏清晨，当第一缕阳光洒向海面，西沙某水警区军医钟俊利就起床了。
+
+                当天，钟俊利将跟随一支特殊巡逻编队，对西沙海域进行联合巡逻。一周前，得知自己即将参与任务，他兴奋不已：“能够参加军警民首次在西沙海域开展联合巡逻，是一生的荣耀！”</p>
+                                <img src="../img/item1.png" />
+                                <p>军警民联合编队航行途中。潘新新摄
+
+                初夏清晨，当第一缕阳光洒向海面，西沙某水警区军医钟俊利就起床了。
+
+                当天，钟俊利将跟随一支特殊巡逻编队，对西沙海域进行联合巡逻。一周前，得知自己即将参与任务，他兴奋不已：“能够参加军警民首次在西沙海域开展联合巡逻，是一生的荣耀！”</p>-->
+            </div>
+        </div>
+
+
+    </div>
+    <div class="panel detail comments">
+
+        <div class="panel-body">
+            <div class="card-alert">
+                <div class="alert-title">讨论区</div>
+                <div class="alert-body">
+                    <div class="item">
+                        <div class="user"><div><img src="../img/p111.jpg" />&nbsp; 王小李</div>   <span>2018-05-06 15:35</span></div>
+                        <p>本期内容：强化思想入党，掌握党，基本知识，提高履行党员义务的素质与能力。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-body">
+            <div class="card-alert">
+
+                <div class="alert-body">
+                    <div class="item">
+                        <div class="user"><div><img src="../img/p111.jpg" />&nbsp; 王小李</div>   <span>2018-05-06 15:35</span></div>
+                        <p>本期内容：强化思想入党，掌握党，基本知识，提高履行党员义务的素质与能力。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!--<a href="javacsript:void(0)" id="goToTest" class="weui-btn weui-btn_primary btn-bottom-fixed">去考试</a>-->
+
+
+    <!-- body 最后 -->
+    <script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js" type='text/javascript' charset='utf-8'></script>
+    <script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.min.js" type='text/javascript' charset='utf-8'></script>
+    <script src="https://g.alicdn.com/dingding/open-develop/1.9.0/dingtalk.js" type='text/javascript' charset='utf-8'></script>
+    <script src="../scripts/main.js"></script>
+    <!-- Initialize Swiper -->
+    <script>
+
+        var userInfo = {};
+        var url = window.location.href;
+        var id = GetQueryString("id");
+
+
+        function setUserInfo(info) {
+            userInfo = info;
+            // alert(JSON.stringify(userInfo));
+
+            $.ajax({
+                url: "https://dangjain.ishoubei.com/study",
+                method: "Post",
+                data: {
+                    user_id: userInfo.emplId,
+                    article_id: id
+                },
+                success: function (re) {
+                   // alert(JSON.stringify(re));
+                }
+            });
+
+        }
+
+
+
+        $(function () {
+
+            getUserInfo(url, setUserInfo);               
+
+
+            $("#goToTest").on("click", function () {
+
+                location.href = 'test.html?ep_id=22&user_id=' + userInfo.emplId;
+            });
+
+         
+            $.get("https://dangjain.ishoubei.com/article/" + id, function (rel) {
+
+                $("#title").html(rel.title);
+                $("#period").html(rel.period);
+                $("#teacher").html(rel.teacher);
+                $("#memo").html(rel.abstract);
+                $("#encode-content").html(rel.content);
+                $(".content").html($("#encode-content").text());
+            });
+        });
+
+    </script>
+
+</body>
+</html>
