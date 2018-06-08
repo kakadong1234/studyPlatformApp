@@ -76,11 +76,12 @@ $(function () {
 
 function getUserInfo(url, callback) {
 
-    return {
+    const info = {
         avatar: 'http://7xrsfo.com1.z0.glb.clouddn.com/mao.jpg',
         nickName: '大壮', 
         emplId: '2345678933433242423442'
     }
+    callback(info);
     // $.get("https://dangjain.ishoubei.com:8443/jsapi-oauth?pwd=sddkhhyy&url=" + url, function (e) {
     //     var _config = {};
     //     _config = e;
