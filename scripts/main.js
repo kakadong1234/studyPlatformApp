@@ -76,49 +76,53 @@ $(function () {
 
 function getUserInfo(url, callback) {
 
+    return {
+        avatar: 'http://7xrsfo.com1.z0.glb.clouddn.com/mao.jpg',
+        nickName: '大壮', 
+        emplId: '2345678933433242423442'
+    }
+    // $.get("https://dangjain.ishoubei.com:8443/jsapi-oauth?pwd=sddkhhyy&url=" + url, function (e) {
+    //     var _config = {};
+    //     _config = e;
+    //     //  alert(JSON.stringify(_config));
+    //     dd.config({
+    //         agentId: _config.agentId,
+    //         corpId: _config.corpId,
+    //         timeStamp: _config.timestamp,
+    //         nonceStr: _config.noncestr,
+    //         signature: _config.signature,
+    //         jsApiList: ['runtime.info', 'biz.contact.choose', 'device.notification.confirm', 'device.notification.prompt', 'biz.ding.post', 'biz.util.openLink', 'biz.util.uploadImage','biz.user.get']
+    //     });
+    //     //  alert(JSON.stringify(_config));
+    //     dd.error(function (error) {
+    //         /**
+    //          {
+    //             message:"错误信息",//message信息会展示出钉钉服务端生成签名使用的参数，请和您生成签名的参数作对比，找出错误的参数
+    //             errorCode:"错误码"
+    //          }
+    //         **/
+    //         alert('dd error: ' + JSON.stringify(error));
+    //     });
 
-    $.get("https://dangjain.ishoubei.com:8443/jsapi-oauth?pwd=sddkhhyy&url=" + url, function (e) {
-        var _config = {};
-        _config = e;
-        //  alert(JSON.stringify(_config));
-        dd.config({
-            agentId: _config.agentId,
-            corpId: _config.corpId,
-            timeStamp: _config.timestamp,
-            nonceStr: _config.noncestr,
-            signature: _config.signature,
-            jsApiList: ['runtime.info', 'biz.contact.choose', 'device.notification.confirm', 'device.notification.prompt', 'biz.ding.post', 'biz.util.openLink', 'biz.util.uploadImage','biz.user.get']
-        });
-        //  alert(JSON.stringify(_config));
-        dd.error(function (error) {
-            /**
-             {
-                message:"错误信息",//message信息会展示出钉钉服务端生成签名使用的参数，请和您生成签名的参数作对比，找出错误的参数
-                errorCode:"错误码"
-             }
-            **/
-            alert('dd error: ' + JSON.stringify(error));
-        });
+    //   //    alert(JSON.stringify(_config));
 
-      //    alert(JSON.stringify(_config));
+    //     dd.ready(function () {
 
-        dd.ready(function () {
+    //         dd.biz.user.get({
+    //             corpId: 'ding377ef05619dd758735c2f4657eb6378f', // 可选参数，如果不传则使用用户当前企业的corpId。 
+    //             onSuccess: function (info) {
+    //               //  alert('userGet success: ' + JSON.stringify(info));
 
-            dd.biz.user.get({
-                corpId: 'ding377ef05619dd758735c2f4657eb6378f', // 可选参数，如果不传则使用用户当前企业的corpId。 
-                onSuccess: function (info) {
-                  //  alert('userGet success: ' + JSON.stringify(info));
+    //                 typeof callback == "function" && callback(info);
 
-                    typeof callback == "function" && callback(info);
+    //             },
+    //             onFail: function (err) {
+    //                 alert('userGet fail: ' + JSON.stringify(err));
+    //             }
+    //         });
 
-                },
-                onFail: function (err) {
-                    alert('userGet fail: ' + JSON.stringify(err));
-                }
-            });
+    //     });
 
-        });
-
-    });
+    // });
 
 }
