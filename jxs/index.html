@@ -57,7 +57,7 @@
         <div class="swiper-pagination"></div>
     </div>
     <div class="weui-grids">
-        <a href="indexList.html?type_id=23" class="weui-grid js_grid">
+        <a href="indexList.html?type_id=66" class="weui-grid js_grid">
             <div class="weui-grid__icon" style="background:#F1514B">
                 <img src="../img/办公.png" />
             </div>
@@ -65,7 +65,7 @@
                 办公
             </p>
         </a>
-        <a href="indexList.html?type_id=24" class="weui-grid js_grid">
+        <a href="indexList.html?type_id=67" class="weui-grid js_grid">
             <div class="weui-grid__icon" style="background:#71AAFA">
                 <img src="../img/职业.png" />
 
@@ -74,7 +74,7 @@
                 职业
             </p>
         </a>
-        <a href="indexList.html?type_id=25" class="weui-grid js_grid">
+        <a href="indexList.html?type_id=68" class="weui-grid js_grid">
             <div class="weui-grid__icon" style="background:#54CED4">
                 <img src="../img/产品.png" />
 
@@ -83,7 +83,7 @@
                 产品
             </p>
         </a>
-        <a href="indexList.html?type_id=26" class="weui-grid js_grid">
+        <a href="indexList.html?type_id=69" class="weui-grid js_grid">
             <div class="weui-grid__icon" style="background:#3BA3F8">
                 <img src="../img/生活.png" />
 
@@ -92,7 +92,7 @@
                 生活
             </p>
         </a>
-        <a href="indexList.html?type_id=27" class="weui-grid js_grid">
+        <a href="indexList.html?type_id=70" class="weui-grid js_grid">
             <div class="weui-grid__icon" style="background:#9FCB87">
                 <img src="../img/工具.png" />
             </div>
@@ -100,7 +100,7 @@
                 工具
             </p>
         </a>
-        <a href="indexList.html?type_id=28" class="weui-grid js_grid">
+        <a href="indexList.html?type_id=71" class="weui-grid js_grid">
             <div class="weui-grid__icon" style="background:#F2A04B">
 
                 <img src="../img/other.png" />
@@ -112,9 +112,9 @@
 
     </div>
 
-    <div class="weui-cells__title info" onclick="location.href='indexList.html'">
+    <div class="weui-cells__title info">
         <span class="title">特别推荐</span>
-        <span class="alert">2017-11-17 08:20 有<i>1</i>部更新</span>
+        <span class="alert">2018-07-18 08:20 有<i>1</i>部更新</span>
 
     </div>
 
@@ -302,7 +302,7 @@
         var html = '<div class="weui-flex list">{{inner}}</div>';
         var innerHtml = '<div class="weui-flex__item">' +
            ' <div class="item">' +
-               '<a class="cover" href="detail{{page}}.html?id={{id}}">' +
+               '<a class="cover" href="detail2.html?id={{id}}">' +
                     '<img src="{{cover}}" />' +
                 '</a>' +
                 '<a class="title" href="detail{{page}}.html?id={{id}}">{{title}}</a>' +
@@ -325,7 +325,7 @@
 
         $(function () {
 
-            $.get("https://dangjain.ishoubei.com:8443/article?type_id=21", function (rel) {
+            $.get("https://dangjain.ishoubei.com/article?type_id=72", function (rel) {
 
                 var strHtml = [];
                 var strInner = [];
@@ -338,14 +338,14 @@
                     } else {
                         page = "2";
                     }
-
+                    console.log(rel.rows[i])
                     strInner.push(innerHtml.replace("{{page}}", page).replace("{{id}}", rel.rows[i].article_id).replace("{{id}}", rel.rows[i].article_id).replace("{{cover}}", rel.rows[i].cover).replace("{{title}}", rel.rows[i].title));
                     if (i % 2 == 1 || i==rel.rows.length-1) {
                         strHtml.push(html.replace("{{inner}}", strInner.join("")));
                         strInner = [];
                     }
                 }
-
+                console.log(strHtml)
                 $("#articleList").html(strHtml.join(""));
             });
         });

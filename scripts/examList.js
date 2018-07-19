@@ -1,6 +1,16 @@
+var user_id = ''
+var url = window.location.href
+
 $(function () {
-    initExamList();
+   getUserInfo(url, initConst);
 })
+
+function initConst(info) {
+    userInfo = info;
+    user_id = userInfo.emplId
+    console.log('user_id is ' + user_id)
+    initExamList();
+}
 
 function initExamList() {
     getExamList();
@@ -8,17 +18,21 @@ function initExamList() {
 
 function getExamList() {
     //TODO
-    $.get('https://dangjain.ishoubei.com:8443/exam/plan', function(data){
+    $.get('https://dangjain.ishoubei.com/exam/plan?status=5', function(data){
         console.log(data);
-        data = data.rows.filter(function(examPlan){
-            return examPlan.status === 5
-        }).map(function(examPlan){
+        data = data.rows.filter(function(item){
+            const endTimeStamp = newDate(item.epe_time).getTime()
+            return endTimeStamp - Date.now() > 0 
+        })
+        .map(function(examPlan){
             const startTimeStamp = newDate(examPlan.eps_time).getTime()
             const endTimeStamp = newDate(examPlan.epe_time).getTime()
             const now = Date.now() // TODO: 这样做有问题 
-            examPlan.show_status = now < startTimeStamp ? '未开考' :  now > endTimeStamp ? '已考完' : '考试中'
+            examPlan.show_status = now < startTimeStamp ? '未开考' : '可考试'
             examPlan.is_show_exam_btn = examPlan.show_status === '未开考' ? false : true
-            examPlan.exam_btn_txt = examPlan.show_status === '考试中' ? '去考试' : '查看考试结果' 
+            // // examPlan.exam_btn_txt = examPlan.show_status === '考试中' ? '去考试' : '查看考试结果' 
+            examPlan.exam_btn_txt = '去考试'
+            examPlan.user_id = user_id
             return examPlan
         })
         console.log(data);
@@ -40,7 +54,7 @@ function initListBody(data) {
                     '</div>',
                     '<div class="item btn">',    
                         '<span>状态: {{show_status}}</span>',                   
-                        '{{#is_show_exam_btn}}<a href="test.html?ep_id={{ep_id}}&user_id={{user_id}}">{{exam_btn_txt}}</a>{{/is_show_exam_btn}}',                    
+                        '{{#is_show_exam_btn}}<a href="test.html?ep_id={{ep_id}}&user_id={{user_id}}&isFrom=center">{{exam_btn_txt}}</a>{{/is_show_exam_btn}}',                    
                     '</div>',
                 '</div>',
             '</div>',
