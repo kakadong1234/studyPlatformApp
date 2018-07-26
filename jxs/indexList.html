@@ -17,7 +17,7 @@
         <span onclick="history.go(-1)">
             <img src="../img/arrow-left.png" />
         </span>
-        <span>课程中心</span>
+        <span id="index_list_title_span">课程中心</span>
         <span id="btn-nav">导航</span>
     </div>
     <div class="weui-skin_android" id="androidActionsheet" style="display:none">
@@ -302,10 +302,10 @@
         var html = '<div class="weui-flex list">{{inner}}</div>';
         var innerHtml = '<div class="weui-flex__item">' +
            ' <div class="item">' +
-               '<a class="cover" href="detail{{page}}.html?id={{id}}">' +
+               '<a class="cover" onClick="goToDetailPage({{id}})">' +
                     '<img src="{{cover}}" />' +
                 '</a>' +
-                '<a class="title" href="detail{{page}}.html?id={{id}}">{{title}}</a>' +
+                '<a class="title" onClick="goToDetailPage({{id}})">{{title}}</a>' +
                 '<div class="comments weui-flex">' +
                    ' <div class="star weui-flex__item">' +
                         '<img src="../img/star.png" />' +
@@ -322,13 +322,46 @@
            ' </div>' +
       '  </div>';
 
-
+       var userinfo = {}
+       var user_id = ''
+       var myStudyList = [];
         $(function () {
+            getUserInfo(location.href, initConst);
+        });
 
-            var typeId = GetQueryString("type_id");
+       function initConst(info) {
+            userInfo = info;
+            user_id = userInfo.emplId
+            console.log('user_id is ' + user_id)
+            getArticleList()
+        }
 
-            $.get("https://dangjain.ishoubei.com/article?type_id="+typeId, function (rel) {
+    function getArticleList() {
+        var typeId = GetQueryString("type_id");
+        var listTitle = Number(typeId) === 1 ? '选修课程' : Number(typeId) === 2 ? '必修课程' : '付费课程'
+        $("#index_list_title_span").innerText = listTitle
+        $.get("https://dangjain.ishoubei.com/study/my?user_id=" + user_id + "&limit=1000", function (data) {
+            myStudyList = data.rows;
+            $.get("https://dangjain.ishoubei.com/article?page=1&status=1&type_id=0&limit=1000", function (rel) {
+                rel.rows = rel.rows.filter(function(item){
+                    if(Number(typeId) === 2){
+                        //选修课 - 不显示不是我的课程
+                        const myArticle = myStudyList.find(function(study){
+                            return study.article_id ===  item.article_id
+                        })
 
+                        if(myArticle){ //这是我的课程
+                            return item.coursetype === Number(typeId)
+                        }
+                        else {
+                            return false
+                        }
+                    }
+                    else{
+                        return item.coursetype === Number(typeId)
+                    }
+                })
+                console.log(rel)
                 var strHtml = [];
                 var strInner = [];
 
@@ -352,8 +385,29 @@
                 $("#articleList").html(strHtml.join(""));
             });
         });
+   }
 
-       
+    function goToDetailPage(id){
+        console.log('id is ' + id)
+        var typeId = Number(GetQueryString("type_id"));
+        if(typeId===3){
+            //付费课课 - 不是我的课程不能点击进入详情 - 弹框
+            const myArticle = myStudyList.find(function(study){
+                return study.article_id === Number(id)
+            })
+
+            if(myArticle){ //这是我的课程
+                window.location.href = "detail2.html?id=" + id
+            }
+            else {
+                //不是我的课程不能点击进入详情 - 弹框
+                alert("改课程为付费课程, 请联系管理员付费!")
+            }
+        }
+        else {
+            window.location.href = "detail2.html?id=" + id
+        }
+    }
     </script>
 </body>
 </html>

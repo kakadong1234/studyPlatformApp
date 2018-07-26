@@ -243,124 +243,53 @@ $(function () {
 
 
 function getUserInfo(url, callback, callbackGps) {
-    // if(!isMobile()) { //pc上调试
+    if(!isMobile()) { //pc上调试
         return typeof callback == "function" && callback({
-            emplId: 'xiaowei098123',
+            emplId: '065506030123353335',
             avatar: 'http://7xrsfo.com1.z0.glb.clouddn.com/tx123.png',
             nickName: '晓伟'
         });
-    // }
-    // $.get("https://dangjain.ishoubei.com/jsapi-oauth?pwd=sddkhhyy&url=" + url, function (e) {
-    //     var _config = {};
-    //     _config = e;
-    //     //  alert(JSON.stringify(_config));
-    //     dd.config({
-    //         agentId: _config.agentId,
-    //         corpId: _config.corpId,
-    //         timeStamp: _config.timestamp,
-    //         nonceStr: _config.noncestr,
-    //         signature: _config.signature,
-    //         jsApiList: ['runtime.info', 'biz.contact.choose', 'device.notification.confirm', 'device.notification.prompt', 'biz.ding.post', 'biz.util.openLink', 'biz.util.uploadImage', 'biz.user.get', 'device.geolocation.get', 'biz.map.locate']
-    //     });
-    //     dd.error(function (error) {
-    //         /**
-    //          {
-    //             message:"错误信息",//message信息会展示出钉钉服务端生成签名使用的参数，请和您生成签名的参数作对比，找出错误的参数
-    //             errorCode:"错误码"
-    //          }
-    //         **/
-    //         console.log('1')
-    //         alert('dd error: ' + JSON.stringify(error));
-    //     });
-    //     console.log('2')
-    //     //    alert(JSON.stringify(_config));
+    }
+    $.get("https://dangjain.ishoubei.com/jsapi-oauth?pwd=sddkhhyy&url=" + url, function (e) {
+        var _config = {};
+        _config = e;
+        //  alert(JSON.stringify(_config));
+        dd.config({
+            agentId: _config.agentId,
+            corpId: _config.corpId,
+            timeStamp: _config.timestamp,
+            nonceStr: _config.noncestr,
+            signature: _config.signature,
+            jsApiList: ['runtime.info', 'biz.contact.choose', 'device.notification.confirm', 'device.notification.prompt', 'biz.ding.post', 'biz.util.openLink', 'biz.util.uploadImage', 'biz.user.get', 'device.geolocation.get', 'biz.map.locate']
+        });
+        dd.error(function (error) {
+            /**
+             {
+                message:"错误信息",//message信息会展示出钉钉服务端生成签名使用的参数，请和您生成签名的参数作对比，找出错误的参数
+                errorCode:"错误码"
+             }
+            **/
+            console.log('1')
+            alert('dd error: ' + JSON.stringify(error));
+        });
+        console.log('2')
+        //    alert(JSON.stringify(_config));
 
-    //     dd.ready(function () {
-    //         dd.biz.user.get({
-    //             corpId: 'ding377ef05619dd758735c2f4657eb6378f', // 可选参数，如果不传则使用用户当前企业的corpId。 
-    //             onSuccess: function (info) {
-    //                 //  alert('userGet success: ' + JSON.stringify(info));
-    //                 typeof callback == "function" && callback(info);
-    //             },
-    //             onFail: function (err) {
-    //                 alert('userGet fail: ' + JSON.stringify(err));
-    //             }
-    //         });
+        dd.ready(function () {
+            dd.biz.user.get({
+                corpId: 'ding377ef05619dd758735c2f4657eb6378f', // 可选参数，如果不传则使用用户当前企业的corpId。 
+                onSuccess: function (info) {
+                    //  alert('userGet success: ' + JSON.stringify(info));
+                    typeof callback == "function" && callback(info);
+                },
+                onFail: function (err) {
+                    alert('userGet fail: ' + JSON.stringify(err));
+                }
+            });
 
-    //         dd.device.geolocation.get({
-    //             targetAccuracy: 100,
-    //             coordinate: 1, //1：获取高德坐标；  0：获取标准坐标；推荐使用高德坐标；标准坐标没有 address 字段
-    //             withReGeocode: false,
-    //             useCache: false, //默认是true，如果需要频繁获取地理位置，请设置false
-    //             onSuccess: function (result) {
-    //                 // alert('userGet gps: ' + (typeof callbackGps));
-    //                 //  alert('userGet gps2: ' + result.address);
-    //                 typeof callbackGps == "function" && callbackGps(result);
-    //              //   alert('userGet gps2: ' + JSON.stringify(result));
-
-
-    //                 /* 高德坐标 result 结构
-    //                 {
-    //                     longitude : Number,
-    //                     latitude : Number,
-    //                     accuracy : Number,
-    //                     address : String,
-    //                     province : String,
-    //                     city : String,
-    //                     district : String,
-    //                     road : String,
-    //                     netType : String,
-    //                     operatorType : String,
-    //                     errorMessage : String,
-    //                     errorCode : Number,
-    //                     isWifiEnabled : Boolean,
-    //                     isGpsEnabled : Boolean,
-    //                     isFromMock : Boolean,
-    //                     provider : wifi|lbs|gps,
-    //                     accuracy : Number,
-    //                     isMobileEnabled : Boolean
-    //                 }
-    //                 */
-
-
-    //                 //dd.biz.map.locate({
-    //                 //    latitude: result.latitude, // 纬度
-    //                 //    longitude: result.longitude, // 经度
-    //                 //    onSuccess: function (rel) {
-    //                 //        alert('userGet gps2: ' + JSON.stringify(rel));
-    //                 //        alert('userGet gps2: ' + rel.snippet);
-
-    //                 //        /* result 结构 */
-    //                 //        //{
-    //                 //        //    province: 'xxx', // POI所在省会
-    //                 //        //    provinceCode: 'xxx', // POI所在省会编码
-    //                 //        //    city: 'xxx', // POI所在城市
-    //                 //        //    cityCode: 'xxx', // POI所在城市
-    //                 //        //    adName: 'xxx', // POI所在区名称
-    //                 //        //    adCode: 'xxx', // POI所在区编码
-    //                 //        //    distance: 'xxx', // POI与设备位置的距离
-    //                 //        //    postCode: 'xxx', // POI的邮编
-    //                 //        //    snippet: 'xxx', // POI的街道地址
-    //                 //        //    title: 'xxx', // POI的名称
-    //                 //        //    latitude: 39.903578, // POI的纬度
-    //                 //        //    longitude: 116.473565, // POI的经度
-    //                 //        //    }
-    //                 //    },
-    //                 //    onFail: function (err) {
-    //                 //    }
-    //                 //});
-
-
-
-    //             },
-    //             onFail: function (err) {
-    //                 alert('userGet Gps fail: ' + JSON.stringify(err));
-    //             }
-    //         });
-
-    //     });
-    //     console.log('3')
-    // });
+        });
+        console.log('3')
+    });
 
 }
 
