@@ -341,9 +341,9 @@
         var listTitle = Number(typeId) === 1 ? '选修课程' : Number(typeId) === 2 ? '必修课程' : '付费课程'
    
         $("#index_list_title_span").html(listTitle)
-        $.get("https://dangjain.ishoubei.com/study/my?user_id=" + user_id + "&limit=1000", function (data) {
+        $.get("http://localhost:8222/study/my?user_id=" + user_id + "&limit=1000", function (data) {
             myStudyList = data.rows;
-            $.get("https://dangjain.ishoubei.com/article?page=1&status=1&type_id=0&limit=1000", function (rel) {
+            $.get("http://localhost:8222/article?page=1&status=1&type_id=0&limit=1000", function (rel) {
                 rel.rows = rel.rows.filter(function(item){
                     if(Number(typeId) === 2){
                         //选修课 - 不显示不是我的课程

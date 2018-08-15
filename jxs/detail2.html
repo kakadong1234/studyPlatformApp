@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>课程中心</title>
     <meta charset="utf-8">
@@ -12,6 +13,7 @@
     <link href="../css/main.css" rel="stylesheet" />
 
 </head>
+
 <body>
     <div class="nav">
         <span onclick="history.go(-1)">
@@ -80,6 +82,13 @@
             </div>
         </div>
 
+        <div class="panel detail comments">
+            <div id="questions_title_div"></div>
+            <div id="choseList"></div>
+            <div id="judgeList"></div>
+            <div id="btn_test_div"></div>
+            <!-- <br /><br /> -->
+        </div>
 
     </div>
     <!-- <div class="panel detail comments">
@@ -131,25 +140,118 @@
             userInfo = info;
             // alert(JSON.stringify(userInfo));
 
-            $.ajax({
-                url: "https://dangjain.ishoubei.com/study",
-                method: "Post",
-                data: {
-                    user_id: userInfo.emplId,
-                    article_id: id
-                },
-                success: function (re) {
-                   // alert(JSON.stringify(re));
-                }
-            });
+            // $.ajax({
+            //     url: "http://localhost:8222/study",
+            //     method: "Post",
+            //     data: {
+            //         user_id: userInfo.emplId,
+            //         article_id: id
+            //     },
+            //     success: function (re) {
+            //         // alert(JSON.stringify(re));
+            //     }
+            // });
 
         }
 
 
+        var questions_title_html = '<div class="panel-body">' +
+            '<div class="card-alert">' +
+            '<div class="alert-title" id="questions_title" >课后练习题</div>' +
+            '</div>' +
+            '</div>';
+
+        var btn_test_html = '<div class="weui-panel__bd" style="padding:20px;">' +
+            '<button id="btn-test" class="weui-btn weui-btn_default" onClick="uploadTest()">提交练习</button>' +
+            '</div>';
+        var cHtml = '<div class="weui-panel weui-panel_access test">' +
+            '<div class="weui-panel__hd">一、单选题</div>' +
+            '<div class="weui-panel__bd">' +
+            '<span href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">' +
+            '   <div class="weui-media-box__bd"><img id="img_{{id}}" src="../img/right.png" class="right" style="display:none" />' +
+            '      <p class="weui-media-box__desc" answer="{{answer}}">{{no}}. {{question}}:   </p>' +
+            '     <div class="weui-cells weui-cells_radio">' +
+            '        <label class="weui-cell weui-check__label" for="x1{{id}}">' +
+            '           <div class="weui-cell__bd">' +
+            '              <p>A. {{answerA}}</p>' +
+            '         </div>' +
+            '        <div class="weui-cell__ft">' +
+            '           <input type="radio" name="radio_{{id}}" class="weui-check" value="A" id="x1{{id}}">' +
+            '          <span class="weui-icon-checked"></span>' +
+            '     </div>' +
+            '</label>' +
+            ' <label class="weui-cell weui-check__label" for="x12{{id}}">' +
+            '    <div class="weui-cell__bd">' +
+            '       <p>B. {{answerB}}</p>' +
+            '  </div>' +
+            ' <div class="weui-cell__ft">' +
+            '        <input type="radio" name="radio_{{id}}" class="weui-check" value="B" id="x12{{id}}">' +
+            '       <span class="weui-icon-checked"></span>' +
+            '  </div>' +
+            '         </label>' +
+            '        <label class="weui-cell weui-check__label" for="x13{{id}}">' +
+            '           <div class="weui-cell__bd">' +
+            '              <p>C. {{answerC}}</p>' +
+            '         </div>' +
+            '        <div class="weui-cell__ft">' +
+            '           <input type="radio" name="radio_{{id}}" class="weui-check"  value="C" id="x13{{id}}">' +
+            '          <span class="weui-icon-checked"></span>' +
+            '     </div>' +
+            '               </label>' +
+            '              <label class="weui-cell weui-check__label" for="x14{{id}}">' +
+            '                 <div class="weui-cell__bd">' +
+            '                    <p>D. {{answerD}}</p>' +
+            '               </div>' +
+            '              <div class="weui-cell__ft">' +
+            '                 <input type="radio" name="radio_{{id}}" class="weui-check" value="D" id="x14{{id}}">' +
+            '                <span class="weui-icon-checked"></span>' +
+            '           </div>' +
+            '      </label>' +
+            ' </div>' +
+            '<p class="answer_p" id="answer_{{id}}" style="display:none" >  答案 {{result}}}</p>' +
+            '      </div>' +
+            ' </span>' +
+            ' </div>' +
+            ' </div>';
+
+        var jHtml = '<div class="weui-panel weui-panel_access test">' +
+            '<div class="weui-panel__hd">{{panduanQuestionTypeIndex}}、判断题</div>' +
+            '<div class="weui-panel__bd">' +
+            '<span href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">' +
+            '<div class="weui-media-box__bd" ><img id="img_{{id}}" src="../img/wrong.png" class="right" style="display:none" />' +
+            '   <p class="weui-media-box__desc" answer="{{answer}}">{{no}}. {{question}}:</p>' +
+            '  <div class="weui-cells weui-cells_radio">' +
+            '     <label class="weui-cell weui-check__label" for="y{{id}}">' +
+            '        <div class="weui-cell__bd">' +
+            '           <p>A. V</p>' +
+            '      </div>' +
+            '     <div class="weui-cell__ft">' +
+            '                                <input type="radio" class="weui-check" name="radio_{{id}}" value="V"  id="y{{id}}">' +
+            '                               <span class="weui-icon-checked"></span>' +
+            '                          </div>' +
+            '                     </label>' +
+            '                    <label class="weui-cell weui-check__label" for="y2{{id}}">' +
+            '                            <div class="weui-cell__bd">' +
+            '                                <p>B. X</p>' +
+            '                           </div>' +
+            '                          <div class="weui-cell__ft">' +
+            '                                <input type="radio" name="radio_{{id}}" class="weui-check" value="X" id="y2{{id}}">' +
+            '                               <span class="weui-icon-checked"></span>' +
+            '                          </div>' +
+            '                     </label>' +
+            '                </div>' +
+            '<p class="answer_p" id="answer_{{id}}" style="display:none" >  答案 {{result}}}</p>' +
+            '           </div>' +
+            '      </span>' +
+            ' </div>' +
+            ' </div>';
+
+        var questions = [];
+
 
         $(function () {
 
-            getUserInfo(url, setUserInfo);               
+            getUserInfo(url, setUserInfo);
 
 
             $("#goToTest").on("click", function () {
@@ -157,8 +259,8 @@
                 location.href = 'test.html?ep_id=22&user_id=' + userInfo.emplId;
             });
 
-         
-            $.get("https://dangjain.ishoubei.com/article/" + id, function (rel) {
+
+            $.get("http://localhost:8222/article/" + id, function (rel) {
 
                 $("#title").html(rel.title);
                 $("#period").html(rel.period);
@@ -167,9 +269,90 @@
                 $("#encode-content").html(rel.content);
                 $(".content").html($("#encode-content").text());
             });
+
+            $.get("http://localhost:8222/article/" + id + "/question", function (rel) {
+
+                questions = rel.rows;
+                console.log('------------------')
+                console.log(questions)
+                if (questions.length !== 0) {
+                    var qArr = []
+                    qArr.push(questions_title_html)
+                    var btnArr = []
+                    btnArr.push(btn_test_html)
+                    $("#questions_title_div").html(qArr.join(""));
+                    $("#btn_test_div").html(btnArr.join(""));
+                }
+                var chosehtml = [];
+                var html = [];
+                var jcount = 0;
+                var cCount = 0;
+                var panduanQuestionTypeIndex = getPanduanQuestionTypeIndex(rel.rows)
+                for (var i = 0; i < rel.rows.length; i++) {
+
+                    if (rel.rows[i].eqt_id == 1) {
+                        html.push(
+                            jHtml.replace("{{question}}", rel.rows[i].question)
+                                .replace("{{panduanQuestionTypeIndex}}", panduanQuestionTypeIndex)
+                                .replace("{{no}}", ++jcount)
+                                .myReplace("{{id}}", rel.rows[i].eq_id)
+                                .replace("{{answer}}", rel.rows[i].answer)
+                        );
+                    } else {
+                        chosehtml.push(
+                            cHtml.replace("{{question}}", rel.rows[i].question)
+                                .replace("{{answerA}}", rel.rows[i].op_a)
+                                .replace("{{answerB}}", rel.rows[i].op_b)
+                                .replace("{{answerC}}", rel.rows[i].op_c)
+                                .replace("{{answerD}}", rel.rows[i].op_d)
+                                .replace("{{no}}", ++cCount)
+                                .myReplace("{{id}}", rel.rows[i].eq_id)
+                                .replace("{{answer}}", rel.rows[i].answer)
+                        );
+                    }
+
+
+                }
+                $("#choseList").html(chosehtml.join(""));
+                $("#judgeList").html(html.join(""));
+
+            });
+
         });
+
+
+        function uploadTest() {
+            for (var i = 0; i < questions.length; i++) {
+
+                console.log($("input[type=radio][name=radio_" + questions[i].eq_id + "]:checked").val());
+                var answer = $("input[type=radio][name=radio_" + questions[i].eq_id + "]:checked").val();
+                if (answer !== undefined) {
+                    console.log(answer)
+                    console.log("答案" + questions[i].answer)
+                    $("p#answer_" + questions[i].eq_id).text("答案 " + questions[i].answer).show();
+                    if (answer == questions[i].answer) {
+                        $("img#img_" + questions[i].eq_id).attr("src", "../img/dui.png").show();
+                    } else {
+                        $("img#img_" + questions[i].eq_id).attr("src", "../img/wrong.png").show();
+                    }
+                }
+
+            }
+        }
+        function getPanduanQuestionTypeIndex(list) {
+            var index = "一"
+            for (var i = 0; i < list.length; i++) {
+                console.log(list[i])
+                if (list[i].eqt_id === 2) { //只要有一个选择题, 那么就是一
+                    index = "二"
+                }
+            }
+            console.log(index)
+            return index
+        }
 
     </script>
 
 </body>
+
 </html>

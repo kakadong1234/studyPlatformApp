@@ -18,7 +18,7 @@ function initExamList() {
 
 function getExamList() {
     //TODO
-    $.get('https://dangjain.ishoubei.com/exam/plan?status=5', function(data){
+    $.get('http://localhost:8222/exam/plan?status=5', function(data){
         console.log(data);
         data = data.rows.filter(function(item){
             const endTimeStamp = newDate(item.epe_time).getTime()

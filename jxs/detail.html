@@ -150,7 +150,7 @@
             // alert(JSON.stringify(userInfo));
 
             $.ajax({
-                url: "https://dangjain.ishoubei.com/study",
+                url: "http://localhost:8222/study",
                 method: "Post",
                 data: {
                     user_id: userInfo.emplId,
@@ -176,7 +176,7 @@
             });
 
 
-            $.get("https://dangjain.ishoubei.com/article/" + id, function (rel) {
+            $.get("http://localhost:8222/article/" + id, function (rel) {
 
                 $("#title").html(rel.title);
                 $("#period").html(rel.period);
