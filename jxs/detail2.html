@@ -140,17 +140,17 @@
             userInfo = info;
             // alert(JSON.stringify(userInfo));
 
-            // $.ajax({
-            //     url: "http://localhost:8222/study",
-            //     method: "Post",
-            //     data: {
-            //         user_id: userInfo.emplId,
-            //         article_id: id
-            //     },
-            //     success: function (re) {
-            //         // alert(JSON.stringify(re));
-            //     }
-            // });
+            $.ajax({
+                url: "http://localhost:8222/studyResult",
+                method: "Post",
+                data: {
+                    user_id: userInfo.emplId,
+                    article_id: id
+                },
+                success: function (res) {
+                    console.log(res);
+                }
+            });
 
         }
 
